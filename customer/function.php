@@ -18,7 +18,7 @@ function getCustomerList(){
                 'data' => $result
             ];
             header("HTTP/1.0 200 OK ");
-            return json_encode($data);
+            return json_encode($data);  
         }else{
             $data=[
                 'status'=> 404,
@@ -36,6 +36,14 @@ function getCustomerList(){
         header("HTTP/1.0 500 Internal Server Error");
         return json_encode($data);
     }
+}
+
+
+function storeCustomer($customerInput){
+    global $conn;
+    $name= mysqli_real_escape_string($conn,$customerInput['name']);
+    $email= mysqli_real_escape_string($conn,$customerInput['email']);
+    $phone= mysqli_real_escape_string($conn,$customerInput['phone']);
 }
 
 
