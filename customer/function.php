@@ -38,12 +38,29 @@ function getCustomerList(){
     }
 }
 
+function error422($message){
+    $data=[
+        'status' => 422,
+        'message' => $message,
+    ];
+    header("HTTP/1.0 422 Unprocessable Entity");
+    echo json_encode($data);
+}
+
+
 
 function storeCustomer($customerInput){
     global $conn;
     $name= mysqli_real_escape_string($conn,$customerInput['name']);
     $email= mysqli_real_escape_string($conn,$customerInput['email']);
     $phone= mysqli_real_escape_string($conn,$customerInput['phone']);
+    if(empty(trim($name))){
+        return error422('enter your name:');
+    }elseif(empty(trim($email))){
+        return error422('enter your email:');
+    }elseif(empty(trim($phone))){
+        return error422('enter your phone:');
+    }
 }
 
 
