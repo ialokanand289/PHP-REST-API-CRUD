@@ -9,13 +9,14 @@ include('function.php');
 $requestMethod=$_SERVER["REQUEST_METHOD"];
 if($requestMethod == 'POST'){
     $inputData= json_decode(file_get_contents("php://input"), true);
-    if(empty($requestMethod)){
+    if(empty($inputData)){
         $storeCustomer= storeCustomer($_POST);
         
     }else{
         $storeCustomer= storeCustomer($inputData);
         
         }
+        echo $storeCustomer;
         
 }else{
     $data=[

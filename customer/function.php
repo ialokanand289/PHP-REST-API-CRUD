@@ -45,6 +45,8 @@ function error422($message){
     ];
     header("HTTP/1.0 422 Unprocessable Entity");
     echo json_encode($data);
+    exit();
+
 }
 
 
@@ -60,6 +62,25 @@ function storeCustomer($customerInput){
         return error422('enter your email:');
     }elseif(empty(trim($phone))){
         return error422('enter your phone:');
+    }else{
+
+        $sql=" INSERT INTO user1 (name, email, phone) VALUES ('$name', '$email', '$phone')";
+        $result=mysqli_query($conn,$sql);
+        if($result){
+            $data=[
+                'status'=> 201  ,
+                'message'=>'Customer Created Successfully',
+            ];
+            header("HTTP/1.0 201 Created");
+            return json_encode($data);
+        }else{
+            $data=[
+                'status'=> 500,
+                'message'=>'Internal Server Error',
+            ];
+            header("HTTP/1.0 500 Internal Server Error");
+            return json_encode($data);
+        }
     }
 }
 
