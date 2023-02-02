@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 header('Access-Control-Allow-Origin:*');
 header('Content-type: application/json');
 header('Access-Control-Allow-Method:POST');
