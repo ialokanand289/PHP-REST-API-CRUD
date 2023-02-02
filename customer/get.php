@@ -8,10 +8,18 @@ header('Access-Control-Allow-Header:Content-Type, Access-Control-Allow-Header, A
 include('function.php');
 
 $requestMethod= $_SERVER["REQUEST_METHOD"];
-if($requestMethod == "GET"){
+    if($requestMethod == "GET"){
+        if(isset($_GET['id'])){
+            $customer= getCustomerList($_GET);
+            echo $customer;
+
+    }else{
     $customerList= getCustomerList();
     echo $customerList;
-}else{
+    }
+}
+else
+{
     $data=[
         'status'=> 405,
         'message'=> $requestMethod.'Method not Allowed',

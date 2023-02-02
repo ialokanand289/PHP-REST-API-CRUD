@@ -85,5 +85,36 @@ function storeCustomer($customerInput){
 }
 
 
+function getCustomer($customerParams){
+    global $conn; 
+    if($customerParams == NULL){
+        return error422('enter your Customer id:');
+
+    }
+    $customerId=mysqli_real_escape_string($conn, $customerParams['id']);
+    $sql=" SELECT * FROM student WHERE id='$customerId' LIMIT=1";
+    $result=mysqli_query($conn, $sql);
+    if($result){
+        if(mysqli_num_rows($result) == 1){
+            $res=mysqli_fetch_assoc($result);
+            $data=[
+                'status'=> 200,
+                'message'=>'Customer Fetched Successfully',
+                'data' => $res
+            ];
+            header("HTTP/1.0 200 OK");
+            return json_encode($data);
+        }else{
+            $data=[
+                'status'=> 404,
+                'message'=>'No Customer Found',
+            ];
+            header("HTTP/1.0 404 Not Found");
+            return json_encode($data);
+        }
+    }
+
+}
+
 
 ?>
