@@ -92,7 +92,7 @@ function getCustomer($customerParams){
 
     }
     $customerId=mysqli_real_escape_string($conn, $customerParams['id']);
-    $sql=" SELECT * FROM student WHERE id='$customerId' LIMIT=1";
+    $sql= "SELECT * FROM student WHERE sno='$customerId' LIMIT 1";
     $result=mysqli_query($conn, $sql);
     if($result){
         if(mysqli_num_rows($result) == 1){

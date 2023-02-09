@@ -10,7 +10,7 @@ include('function.php');
 $requestMethod= $_SERVER["REQUEST_METHOD"];
     if($requestMethod == "GET"){
         if(isset($_GET['id'])){
-            $customer= getCustomerList($_GET);
+            $customer= getCustomer($_GET);
             echo $customer;
 
     }else{
