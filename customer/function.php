@@ -117,4 +117,47 @@ function getCustomer($customerParams){
 }
 
 
+function updateCustomer($customerInput, $customerParams){
+    global $conn;
+    if(!isset($customerParams['id'])){
+        return error422("Customer Id Not Found In URL");
+    }
+    else{
+            return error422("Enter The Customer Id: ");
+        }
+    
+    $customerId= mysqli_real_escape_string($conn,$customerParams['id']);
+
+    $name= mysqli_real_escape_string($conn,$customerInput['name']);
+    $email= mysqli_real_escape_string($conn,$customerInput['email']);
+    $phone= mysqli_real_escape_string($conn,$customerInput['phone']);
+    if(empty(trim($name))){
+        return error422('enter your name:');
+    }elseif(empty(trim($email))){
+        return error422('enter your email:');
+    }elseif(empty(trim($phone))){
+        return error422('enter your phone:');
+    }else{
+
+        $sql=" UPDATE user1 SET name='$name', email='$email', phone='$phone' WHERE id='$customerId' LIMIT 1";
+        $result=mysqli_query($conn,$sql);
+        if($result){
+            $data=[
+                'status'=> 201  ,
+                'message'=>'Customer Created Successfully',
+            ];
+            header("HTTP/1.0 201 Created");
+            return json_encode($data);
+        }else{
+            $data=[
+                'status'=> 500,
+                'message'=>'Internal Server Error',
+            ];
+            header("HTTP/1.0 500 Internal Server Error");
+            return json_encode($data);
+        }
+    }
+}
+
+
 ?>
